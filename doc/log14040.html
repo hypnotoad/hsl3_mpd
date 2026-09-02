@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+    <head>
+        <link rel="stylesheet" href="style.css">
+        <title>Logik - MPD</title>
+        <style>
+            body { background: none; }
+        </style>
+        <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    </head>
+    <body>
+        <div class="top-title">
+          MPD
+        </div>
+        <div class="nav">
+            <a href="javascript:history.back()">Zurück</a> /
+            <a href="javascript:history.forward()">Vor</a> |
+            <a href="hlpsearch.html">Suchen</a> |
+            <a href="index.html">Hilfe</a> /
+            <a href="logic.html">Logik</a> / MPD
+        </div>
+
+        <!-- Inhaltsverzeichnis -->
+        <div class="index">
+            <div class="index-title">
+                <a id="doc_index_1_"></a>Inhalt
+            </div>
+            <div class="t-line">
+                <div class="t-chapter">
+                    <a href="#auto_index_anchor_1_">1.</a>
+                </div>
+                <div class="t-text">
+                    <a href="#auto_index_anchor_1_">Beschreibung</a>
+                </div>
+            </div>
+            <div class="t-line">
+                <div class="t-chapter">
+                    <a href="#auto_index_anchor_2_">2.</a>
+                </div>
+                <div class="t-text">
+                    <a href="#auto_index_anchor_2_">Eingänge</a>
+                </div>
+            </div>
+            <div class="t-line">
+                <div class="t-chapter">
+                    <a href="#auto_index_anchor_3_">3.</a>
+                </div>
+                <div class="t-text">
+                    <a href="#auto_index_anchor_3_">Ausgänge</a>
+                </div>
+            </div>
+            <div class="t-line">
+                <div class="t-chapter">
+                    <a href="#auto_index_anchor_4_">4.</a>
+                </div>
+                <div class="t-text">
+                    <a href="#auto_index_anchor_4_">Sonstiges</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Inhalt -->
+        <div class="content">
+            <!-- Kapitel 1 - Beschreibung -->
+            <div class="topic">
+                <h2 class="t-line">
+                    <a id="auto_index_anchor_1_"></a>
+                    <span class="t-chapter">1.</span>
+                    <span class="t-text">Beschreibung</span>
+                </h2>
+                <div class="descr">
+                  Dieser Baustein ermöglicht die Steuerung mit einem MPD-Server.<br>
+                </div>
+            </div>
+
+            <!-- Kapitel 2 - Eingänge -->
+            <h2 class="t-line">
+                <a id="auto_index_anchor_2_"></a>
+                <span class="t-chapter">2.</span>
+                <span class="t-text">Eingänge</span>
+            </h2>
+            <div>
+                <table class="table-in">
+                    <tr>
+                        <th class="io-nr center">Nr.</th>
+                        <th class="io-name">Name</th>
+                        <th class="io-init center">Init</th>
+                        <th class="io-descr">Beschreibung</th>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">1</td>
+                        <td class="io-name">E1 Hostname</td>
+                        <td class="io-init string center">"mpd.lan"</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Hostname des MPD-Servers.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">2</td>
+                        <td class="io-name">E2 Port</td>
+                        <td class="io-init center">6600</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Portnummber des MPD-Servers.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">3</td>
+                        <td class="io-name">E3 Password</td>
+                        <td class="io-init string center">""</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Passwort des MPD-Servers.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">4</td>
+                        <td class="io-name">E4 Start/Stop</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Sende 1 für Start und 0 für Stop.
+			    Initialwert wird nicht genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">5</td>
+                        <td class="io-name">E5 Pause/Play</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Sende 1 für Pause und 0 für
+                            Weiter. Initialwert wird nicht genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">6</td>
+                        <td class="io-name">E6 Volume</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Lautstärke (0-100). Initialwert wird nicht
+                            genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">7</td>
+                        <td class="io-name">E7 Playlist</td>
+                        <td class="io-init string center">""</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Name einer Playliste, die ausgewählt
+                           werden soll. Initialwert wird nicht
+                           genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">8</td>
+                        <td class="io-name">E8 Next/Prev</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                           Sende 1 für nächstes Stück und 0 für
+                           vorheriges. Initialwert wird nicht
+                            genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">9</td>
+                        <td class="io-name">E9 Mute</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                           Sende 1 für Mute und 0, um die vorherige
+                           Lautstärke wiederherzustellen. Initialwert
+                           wird nicht genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">10</td>
+                        <td class="io-name">E10 Mute</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                           Repeat-All-Option. Initialwert wird nicht
+                           genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr input center">11</td>
+                        <td class="io-name">E11 Mute</td>
+                        <td class="io-init center">0</td>
+                        <td class="io-descr">
+                          <div class="descr">
+                            Random-Option. Initialwert wird nicht
+                           genutzt.
+                          </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Kapitel 3 - Ausgänge -->
+            <h2 class="t-line">
+                <a id="auto_index_anchor_3_"></a>
+                <span class="t-chapter">3.</span>
+                <span class="t-text">Ausgänge</span>
+            </h2>
+            <div>
+                <table class="table-out">
+                    <tr>
+                        <th class="io-nr center">Nr.</th>
+                        <th class="io-name">Name</th>
+                        <th class="io-init center">Init</th>
+                        <th class="o-sbc center">
+                            <a href="logic2.html#_Toc17193931">SBC</a>
+                        </th>
+                        <th class="io-descr">Beschreibung</th>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">1</td>
+                        <td class="io-name">A1 Connected</td>
+                        <td class="io-init center">0</td>
+                        <td class="o-sbc center">sbc</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Zeigt den Verbindungsstatus an (1
+                              verbunden, 0 getrennt).
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">2</td>
+                        <td class="io-name">A2 Playing</td>
+                        <td class="io-init center">0</td>
+                        <td class="o-sbc center">sbc</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Zeigt an, ob gerade abgespielt wird (1).
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">3</td>
+                        <td class="io-name">A3 Volume</td>
+                        <td class="io-init center">0</td>
+                        <td class="o-sbc center">sbc</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Gibt die aktuelle Lautstärke zurück (0-100).
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">4</td>
+                        <td class="io-name">A4 Titel</td>
+                        <td class="io-init string center">""</td>
+                        <td class="o-sbc center">s</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Gibt den aktuellen Titel zurück.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">5</td>
+                        <td class="io-name">A5 Künstler</td>
+                        <td class="io-init string center">""</td>
+                        <td class="o-sbc center">s</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Gibt den aktuellen Künstler zurück.
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="io-nr output center">6</td>
+                        <td class="io-name">A6 Album</td>
+                        <td class="io-init string center">""</td>
+                        <td class="o-sbc center">s</td>
+                        <td class="io-descr">
+                            <div class="descr">
+                              Gibt das aktuelle Albun zurück.
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+                <div class="small">s =
+                    <a href="logic2.html#_Toc17193931">send</a>, sbc =
+                    <a href="logic2.html#_Toc17193931">send by change</a>
+                </div>
+            </div>
+
+            <!-- Kapitel 4 - Sonstiges -->
+            <h2 class="t-line">
+                <a id="auto_index_anchor_4_"></a>
+                <span class="t-chapter">4.</span>
+                <span class="t-text">Sonstiges</span>
+            </h2>
+            <table class="table-logic-info">
+                <tr>
+                    <th>Neuberechnung bei Start:</th>
+                    <td>Ja</td>
+                </tr>
+                <tr>
+                    <th>Baustein ist remanent:</th>
+                    <td>Nein</td>
+                </tr>
+                <tr>
+                    <th>Interne Bezeichnung:</th>
+                    <td>10929</td>
+                </tr>
+                <tr>
+                    <th>Kategorie:
+                    </th><td>music</td>
+                </tr>
+            </table>
+
+        </div>
+    </body>
+</html>

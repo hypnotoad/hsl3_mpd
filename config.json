@@ -1,0 +1,147 @@
+{
+    "module": {
+        "category": "Netzwerk",
+        "context": "mpdcontrol",
+        "id": "14040",
+        "name": "mpd",
+        "version": "1.2.1",
+        "inputs": [
+	    {
+		"label": "Hostname",
+		"identifier": "hostname",
+		"init_value": "mpd.lan",
+		"type": "string"
+	    },
+	    {
+		"label": "Port",
+		"identifier": "port",
+		"init_value": "6600",
+		"type": "number"
+	    },
+	    {
+		"label": "Password",
+		"identifier": "password",
+		"init_value": "",
+		"type": "string"
+	    },
+	    {
+		"label": "Startstop",
+		"identifier": "startstop",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Pauseplay",
+		"identifier": "pauseplay",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Volume 0-100",
+		"identifier": "volume",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Playlist",
+		"identifier": "playlist",
+		"init_value": "",
+		"type": "string"
+	    },
+	    {
+		"label": "Nextprev",
+		"identifier": "nextprev",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Mute",
+		"identifier": "mute",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Repeat All",
+		"identifier": "repeatall",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Random",
+		"identifier": "random",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Playlist Nextprev",
+		"identifier": "playlist_nextprev",
+		"init_value": "0",
+		"type": "number"
+	    }
+        ],
+        "outputs": [
+	    {
+		"label": "Connected",
+		"identifier": "connected",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Playing",
+		"identifier": "playing",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Volume",
+		"identifier": "volume",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Title",
+		"identifier": "title",
+		"init_value": "",
+		"type": "string"
+	    },
+	    {
+		"label": "Artist",
+		"identifier": "artist",
+		"init_value": "",
+		"type": "string"
+	    },
+	    {
+		"label": "Album",
+		"identifier": "album",
+		"init_value": "",
+		"type": "string"
+	    },
+	    {
+		"label": "Paused",
+		"identifier": "paused",
+		"init_value": "0",
+		"type": "number"
+	    },
+	    {
+		"label": "Playlist",
+		"identifier": "playlist_name",
+		"init_value": "",
+		"type": "string"
+	    }
+        ],
+	"stores": [
+	    {
+		"identifier": "playlist_name",
+		"init_value": "",
+		"type": "string"
+	    }
+	],
+	"timers": [],
+	"scripts": [
+	    {
+		"folder": "."
+	    }
+	],
+	"translations": []
+    }
+}
