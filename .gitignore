@@ -1,1 +1,4 @@
 .env
+*.hsl
+*.hslz
+__pycache__
