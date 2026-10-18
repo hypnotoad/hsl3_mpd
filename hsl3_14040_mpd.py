@@ -1,3 +1,4 @@
+import logging.handlers
 import threading
 import time
 from hsl3_14040_module_loader import ModuleLoader
@@ -9,9 +10,9 @@ def inputs_to_dict(inputs):
             "password": inputs["password"].value.decode('utf-8')}
         
 class Receiver:
-    def __init__(self, set_state, debug):
+    def __init__(self, set_state, log):
         self.set_state = set_state
-        self.debug = debug
+        self.log = log
         self.outputs_initialized = False
 
     def start(self, connection):
@@ -27,7 +28,7 @@ class Receiver:
 
     def loop(self):
         import mpd
-        self.debug.log("starting receiver thread")
+        self.log("starting receiver thread")
 
         if self.connection["hostname"] == "":
             return
@@ -55,19 +56,19 @@ class Receiver:
                     self.update_mixer(receiver.status())
 
             except mpd.ConnectionError as e:
-                self.debug.log("Connection exception while trying to receive command: {}. Reconnecting...".format(e))
+                self.log("Connection exception while trying to receive command: {}. Reconnecting...".format(e))
 
                 time.sleep(1) 
                 self.reconnect_receiver()
 
             except IOError as e:
-                self.debug.log("IO exception while trying to receive command: {}. Reconnecting...".format(e))
+                self.log("IO exception while trying to receive command: {}. Reconnecting...".format(e))
 
                 time.sleep(1) 
                 self.reconnect_receiver()
 
             except mpd.MPDError as e:
-                self.debug.log("MPD error while trying to receive command: {}".format(e))
+                self.log("MPD error while trying to receive command: {}".format(e))
 
                 time.sleep(1) 
                 self.reconnect_receiver()
@@ -79,7 +80,7 @@ class Receiver:
         import mpd
 
         self.outputs_initialized = False
-        self.debug.log("Trying to connect receiver to {}".format(self.connection["hostname"]))
+        self.log("Trying to connect receiver to {}".format(self.connection["hostname"]))
 
         try:
             receiver = mpd.MPDClient()
@@ -88,11 +89,11 @@ class Receiver:
             if self.connection["password"] != "":
                 receiver.password(self.connection["password"])
 
-            self.debug.log("Receiver connected to MPD version {}".format(receiver.mpd_version))
+            self.log("Receiver connected to MPD version {}".format(receiver.mpd_version))
             return receiver
 
         except (mpd.MPDError, IOError) as e:
-            self.debug.log("IO exception while trying to connect receiver: {}".format(e))
+            self.log("IO exception while trying to connect receiver: {}".format(e))
 
         
     def update_playstate(self, s, receiver):
@@ -140,6 +141,15 @@ class LogicModule:
                                     "python-mpd2-3.1.2.zip",
                                     "/python-mpd2-3.1.2")
 
+        self.logger = logging.getLogger("mpdcontrol")
+        self.logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(logging.handlers.SysLogHandler(address='/dev/log'))
+
+
+    def log(self, text):
+        self.debug.log(text)
+        self.logger.debug(text)
+        
     def __enter__(self):
         return self
     
@@ -156,7 +166,7 @@ class LogicModule:
         self.sender = None
         self.reconnect()
 
-        self.receiver = Receiver(self.set_state, self.debug)
+        self.receiver = Receiver(self.set_state, self.log)
         self.receiver.start(self.connection)
 
     def on_calc(self, inputs):
@@ -177,19 +187,19 @@ class LogicModule:
                 return
 
             except mpd.ConnectionError as e:
-                self.debug.log("Connection exception while trying to send command: {}. Reconnecting...".format(e))
+                self.log("Connection exception while trying to send command: {}. Reconnecting...".format(e))
 
                 time.sleep(1) 
                 self.reconnect()
 
             except IOError as e:
-                self.debug.log("IO exception while trying to send command: {}. Reconnecting...".format(e))
+                self.log("IO exception while trying to send command: {}. Reconnecting...".format(e))
 
                 time.sleep(1) 
                 self.reconnect()
 
             except mpd.MPDError as e:
-                self.debug.log("MPD error while trying to send command: {}".format(e))
+                self.log("MPD error while trying to send command: {}".format(e))
 
                 time.sleep(1) 
                 self.reconnect()
@@ -224,7 +234,7 @@ class LogicModule:
         if inputs["playlist_nextprev"].changed:
             playlist = self.get_playlist_name(next = inputs["playlist_nextprev"].value != 0)
         if playlist is not None:
-            self.debug.log("Loading playlist: {}".format(playlist))
+            self.log("Loading playlist: {}".format(playlist))
             #self.sender.stop()
             self.sender.clear()
             self.sender.load(playlist)
@@ -276,17 +286,17 @@ class LogicModule:
 
         try:
             if self.sender is not None:
-                self.debug.log("Trying to disconnect")
+                self.log("Trying to disconnect")
                 self.sender.disconnect()
                 self.set_state("connected", 0)
         except (mpd.MPDError, IOError) as e:
-            self.debug.log("IO exception while trying to disconnect sender: {}".format(e))
+            self.log("IO exception while trying to disconnect sender: {}".format(e))
 
         if len(self.connection["hostname"]) == 0:
             return
 
         try:
-            self.debug.log("Trying to connect sender to {}".format(self.connection["hostname"]))
+            self.log("Trying to connect sender to {}".format(self.connection["hostname"]))
             self.sender = mpd.MPDClient()
 
             self.sender.connect(self.connection["hostname"], self.connection["port"])
@@ -294,12 +304,12 @@ class LogicModule:
                 self.sender.password(self.connection["password"])
 
             self.set_state("connected", 1)
-            self.debug.log("Sender connected to MPD version {}".format(self.sender.mpd_version))
+            self.log("Sender connected to MPD version {}".format(self.sender.mpd_version))
 
         except (mpd.MPDError, IOError) as e:
             
             self.set_state("connected", 0)
-            self.debug.log("IO exception while trying to connect sender: {}".format(e))
+            self.log("IO exception while trying to connect sender: {}".format(e))
             
 
     def set_state(self, key, value):
@@ -321,7 +331,7 @@ class LogicModule:
     def get_playlist_name(self, next):
         playlists = sorted([s["playlist"] for s in self.sender.listplaylists()])
         N = len(playlists)
-        self.debug.log("available {} playlists: {}".format(N, playlists))
+        self.log("available {} playlists: {}".format(N, playlists))
 
         if N == 0:
             return None
