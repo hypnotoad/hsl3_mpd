@@ -12,6 +12,7 @@ class Receiver:
     def __init__(self, set_state, debug):
         self.set_state = set_state
         self.debug = debug
+        self.outputs_initialized = False
 
     def start(self, connection):
         # the receiver thread connects itself from within the thread
@@ -31,19 +32,18 @@ class Receiver:
         if self.connection["hostname"] == "":
             return
 
-        outputs_initialized = False
         receiver = self.reconnect_receiver()
         
         while not self.stop_event.is_set():
             # in contrast to the sender, we try to reconnect all the
             # time with a longer period of 10 seconds
             try:
-                if not outputs_initialized:
+                if not self.outputs_initialized:
                     s = receiver.status()
                     self.update_playstate(s, receiver)
                     self.update_mixer(s)
 
-                    outputs_initialized = True
+                    self.outputs_initialized = True
 
                 # block for event
                 events = receiver.idle()
@@ -78,6 +78,7 @@ class Receiver:
     def reconnect_receiver(self):
         import mpd
 
+        self.outputs_initialized = False
         self.debug.log("Trying to connect receiver to {}".format(self.connection["hostname"]))
 
         try:
