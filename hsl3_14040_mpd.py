@@ -1,3 +1,4 @@
+import logging.handlers
 import threading
 import time
 from hsl3_14040_module_loader import ModuleLoader
@@ -134,17 +135,23 @@ class LogicModule:
     def __init__(self, hsl3):
         self.fw = hsl3
         self.debug = self.fw.create_debug_section()
+        self.logger = None
 
         self.module_loader = ModuleLoader(self.fw)
         self.module_loader.load_zip("mpd",
                                     "python-mpd2-3.1.2.zip",
                                     "/python-mpd2-3.1.2")
 
-        self.logger = self.fw.get_logger(host="192.168.180.6", port=514)
-
     def log(self, text):
+        if self.logger is None:
+            self.prefix = "hsl3_{}_{}".format(self.fw.get_module_id(), self.fw.get_instance_id())
+            self.logger = logging.getLogger(self.prefix)
+            self.logger.setLevel(logging.DEBUG)
+            handler = logging.handlers.SysLogHandler(address=("syslog.lan", 514))
+            self.logger.addHandler(handler)
+        
         self.debug.log(text)
-        self.logger.info("mpdcontrol: {}".format(text))
+        self.logger.info("{}: {}".format(self.prefix, text))
         
     def __enter__(self):
         return self

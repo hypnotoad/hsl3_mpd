@@ -33,6 +33,7 @@ class ModuleTest(unittest.TestCase):
     def create_module(self, inputs):
         store=Hsl3Slots(self.store)
         module = LogicModule(self.fw)
+        self.fw.set_module(module)
         module.on_init(inputs, store)
         time.sleep(1)
         return module
